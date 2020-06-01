@@ -5,7 +5,6 @@
 namespace wd
 {
 
-
 class MutexLock
 {
 public:

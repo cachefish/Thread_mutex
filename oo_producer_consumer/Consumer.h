@@ -1,5 +1,6 @@
 #ifndef __CONSUMER_H__
 #define __CONSUMER_H__
+
 #include"Thread.h"
 
 namespace wd
