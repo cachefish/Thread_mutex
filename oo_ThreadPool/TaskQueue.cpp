@@ -8,6 +8,7 @@ TaskQueue::TaskQueue(size_t queSize)
 ,_mutex()
 ,_notFull(_mutex)
 ,_notEmpty(_mutex)
+,_flag(true)
 {
 
 }
@@ -35,12 +36,16 @@ void TaskQueue::push(const ElemType&Elem)
 ElemType TaskQueue::pop()
 {
     MutexLockGuand autoLock(_mutex);
-    while(empty()){
+    while(_flag&&empty()){
         _notEmpty.wait();
     }
-
-    ElemType temp = _que.front();
+    if(_flag){
+            ElemType temp = _que.front();
     _que.pop();
     _notFull.notify();
     return temp;
+    }else{
+        return NULL;
+    }
+
 }

@@ -5,14 +5,13 @@
 #include "Condition.h"
 
 #include <queue>
+#include <functional>
 using std::queue;
 
 namespace wd
 {
 
-class Task;
-
-typedef Task * ElemType;
+typedef std::function<void()> ElemType;
 
 class TaskQueue
 {
@@ -23,6 +22,11 @@ public:
 	bool full() const;
 	void push(const ElemType & elem);
 	ElemType pop();
+
+	void wakeup() {
+		_flag = false;
+		_notEmpty.notifyall();
+	}
 	
 private:
 	size_t          _queSize;
@@ -30,6 +34,7 @@ private:
 	MutexLock       _mutex;
 	Condition       _notFull;
 	Condition       _notEmpty;
+	bool			_flag;
 };
 
 }//end of namespace wd
