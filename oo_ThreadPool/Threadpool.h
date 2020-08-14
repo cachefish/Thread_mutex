@@ -24,7 +24,7 @@ public:
     void start();
     void stop();
     void addTask(Task*);
-private:
+public:
     Task*getTask();
     void threadFunc();
 
